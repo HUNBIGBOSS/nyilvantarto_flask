@@ -5,9 +5,17 @@ app.debug = True
 
 # http://flask.pocoo.org
 
+# az index függvény rendeleli le az index.html file-t
 @app.route("/")
-def hello():
-	return render_template('index.html')
+def index():
+	user = "szevike"
+	# a user változó, az az index.html file-ban is user változóként lesz elérhető
+	return render_template('index.html', user=user)
+
+# a flask minden template file-t a templates mappán belül keres
+@app.route("/login")
+def loginPage():
+	return render_template('login.html')
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0')

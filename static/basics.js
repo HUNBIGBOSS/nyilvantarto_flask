@@ -1,4 +1,6 @@
-'use strict'
+// ez a file a javascript alapokat tartalmazza, nem az app része
+
+'use strict' // szigorú mód, szigorúbbak a szabályok, érdemes használni
 
 console.log("Helló bazmeg");
 

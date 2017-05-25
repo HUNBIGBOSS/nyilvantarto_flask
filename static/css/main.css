@@ -16,3 +16,6 @@
 .content {
 	background-color: #e8f1ff;
 }
+.inactive-content {
+	display: none;
+}
