@@ -1,4 +1,7 @@
 {
+  "//": "ezt a file-t a bower init-tel generáltuk",
+  "//": "tartalmazza a frontend függőségeket",
+  "//": "telepíteni a bower install paranccsal lehet",
   "name": "nincs",
   "homepage": "https://github.com/HUNBIGBOSS/nyilvantarto_flask",
   "description": "aa",
