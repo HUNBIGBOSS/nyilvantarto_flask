@@ -21,7 +21,9 @@ Last change	: 2015/03/27
 /*=== 1. General Structure ===*/
 html,
 body {
-  background: #efefef;
+  background-image: url('1.jpg');
+  background-size: 100px 100px;
+  background-repeat: repeat;
   padding: 10px;
   font-family: 'Varela Round';
 }

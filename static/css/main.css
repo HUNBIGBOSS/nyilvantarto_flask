@@ -19,3 +19,21 @@
 .inactive-content {
 	display: none;
 }
+.add {
+	padding: 4px 16px;
+	margin: 10px;
+	float: right;
+	border-radius: 5px;
+}
+.remove {
+	display: inline-block;
+	cursor: pointer;
+	padding: 4px 12px;
+	border-radius: 5px;
+}
+.munkaora {
+	width: 100%;
+}
+.datum_mezo {
+	width: 100%;
+}
