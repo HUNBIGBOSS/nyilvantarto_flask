@@ -1,10 +1,19 @@
 {
-  "//": "ezt a file-t a bower init-tel generáltuk",
-  "//": "tartalmazza a frontend függőségeket",
-  "//": "telepíteni a bower install paranccsal lehet",
-  "name": "nincs",
-  "homepage": "https://github.com/HUNBIGBOSS/nyilvantarto_flask",
-  "description": "aa",
-  "main": "",
-  "license": "MIT"
+  "//": "ezt a file-t a bower inittel generaltuk, tartalmazza a frontend fuggosegeket",
+  "//": "telepiteni a bower install parancsal lehet",
+  "name": "bower.json",
+  "description": "",
+  "main": "bower.json",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
 }

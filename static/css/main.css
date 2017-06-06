@@ -27,8 +27,8 @@
 }
 .remove {
 	display: inline-block;
-	cursor: pointer;
-	padding: 4px 12px;
+	float: left;
+	padding: 1px 8px;
 	border-radius: 5px;
 }
 .munkaora {
