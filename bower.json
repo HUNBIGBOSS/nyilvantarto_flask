@@ -1,5 +1,4 @@
 {
-  "//": "ezt a file-t a bower inittel generaltuk, tartalmazza a frontend fuggosegeket",
   "//": "telepiteni a bower install parancsal lehet",
   "name": "bower.json",
   "description": "",
@@ -14,6 +13,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "bootstrap-datepicker": "^1.6.4"
   }
 }
