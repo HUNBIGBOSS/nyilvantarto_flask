@@ -60,9 +60,14 @@ function addMunkanap() {
 
 // globális változó, használata csak indokolt esetben ajánlott
 let new_munkanaps = [];
+let collectHours = {};
 // [{id:1, datePiced:"2017.04.03",workedHour:5, comment:"mycomment",okToSend:true},{},{}...]
 function collectMunkanaps () {
 	//TODO összegyűjteni a munkanapokat egy objecteket tartalmazó tömbbe
+	new_munkanaps = [];
+	// az azonos napra beírt munkaórák száma nem haladhatja meg a 8 órát
+	// collectHours = {"2017.06.09": 4, "2017.07.12": 8}
+	collectHours = {};
 	$('.new_munkanap').each(function() {
 		let munkanapId = $(this).attr('id');
 		let datePicked = $(this).find('.datepicker').val();
@@ -70,6 +75,33 @@ function collectMunkanaps () {
 		workedHour = parseFloat(workedHour.replace(',','.').replace(' ',''));
 		let comment_text = $(this).find('.comment').val();
 		let okToSend = false;
+		//if (collectHours[datePicked]) { // ha létezik az adott dátummal propertyt az objectben
+		//	collectHours[datePicked] = collectHours[datePicked]; // akkor az értéke önmaga lesz, tehát nem bántjuk
+		//} else { // különben
+		//	collectHours[datePicked] = 0; // léttehozzuk ezt a propertyt és nullára állítjuk az értékét
+		//}
+
+		// a || operátor ("vagy" jel) a bal oldalt fogja preferálni, ha az igaz, vagy ha az hamis, akkor a jobb oldalt fogja preferálni
+		collectHours[datePicked] = collectHours[datePicked] || 0;
+
+		//collectHours[datePicked] = collectHours[datePicked] + workedHour; // minden esetben hozzáadjuk a property értékéhez
+		// a ledolgozott órát
+
+		collectHours[datePicked] += workedHour;
+
+		removeAlert(munkanapId);
+		if (collectHours[datePicked] >= 0 && collectHours[datePicked] <= 8) {
+			okToSend = true;
+		} else {
+			okToSend = false;
+			putAlert(munkanapId, "Ez a nap már elérte a max munkaórát (8 óra)");
+		}
+		if (workedHour === 0) {
+			okToSend = false;
+			removeAlert(munkanapId);
+			putAlert(munkanapId, "A munkaóra nem lehet nulla");
+		}
+
 		new_munkanaps.push({
 			"id": munkanapId,
 			"datePicked": datePicked,
@@ -79,7 +111,28 @@ function collectMunkanaps () {
 		});
 	}); //each
 	console.log("A munkanapok: "+JSON.stringify(new_munkanaps));
-	console.log("munkanapok összegyűjtése...");
+	console.log(collectHours);
+}
+
+function removeAlert(munkanapId) {
+	$('#'+munkanapId+'.new_munkanap > .alert').remove();
+	console.log("leveszem: "+munkanapId);
+}
+
+function putAlert(munkanapId, alerttext) {
+	//let existingAlert = $('#'+munkanapId+'.new_munkanap').find('.alerttext').text();
+	if ($('#'+munkanapId+'.new_munkanap > .alert').length === 0 || existingAlert !== alerttext) {
+		$('#'+munkanapId+'.new_munkanap').prepend(`
+		<div class="alert alert-warning alert-dismissable">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<div class="alerttext">
+			`+alerttext+`
+			</div>
+		</div>
+		`);
+	} else {
+		// megvillogtatjuk a meglévő hibaüzenetet
+	}
 }
 
 function removeMunkanap(munkanapToRemove) {
