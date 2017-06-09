@@ -41,10 +41,10 @@ function addMunkanap() {
 							<input id="`+(lastid+1)+`" type="text" placeholder="datum" class="datepicker datum_mezo form-control">
 						</div>
 						<div class="col-xs-6 col-sm-2">
-							<input id="`+(lastid+1)+`" type="number" min="0.5"  max="12" step="0.5" placeholder="ora" class="munkaora form-control">
+							<input id="`+(lastid+1)+`" type="number" min="0.5"  max="8" step="0.5" placeholder="ora" class="munkaora form-control">
 						</div>
 						<div class="col-xs-12 col-sm-6">
-							<textarea id="`+(lastid+1)+`" class="form-control" rows="3" placeholder="megjegyzés"></textarea>
+							<textarea id="`+(lastid+1)+`" class="comment form-control" rows="3" placeholder="megjegyzés"></textarea>
 						</div>
 					</div>
 		`);
@@ -58,10 +58,27 @@ function addMunkanap() {
 	});
 } //addMunkanap
 
+// globális változó, használata csak indokolt esetben ajánlott
 let new_munkanaps = [];
 // [{id:1, datePiced:"2017.04.03",workedHour:5, comment:"mycomment",okToSend:true},{},{}...]
 function collectMunkanaps () {
 	//TODO összegyűjteni a munkanapokat egy objecteket tartalmazó tömbbe
+	$('.new_munkanap').each(function() {
+		let munkanapId = $(this).attr('id');
+		let datePicked = $(this).find('.datepicker').val();
+		let workedHour = $(this).find('.munkaora').val();
+		workedHour = parseFloat(workedHour.replace(',','.').replace(' ',''));
+		let comment_text = $(this).find('.comment').val();
+		let okToSend = false;
+		new_munkanaps.push({
+			"id": munkanapId,
+			"datePicked": datePicked,
+			"workedHour": workedHour,
+			"comment": comment_text,
+			"okToSend": okToSend
+		});
+	}); //each
+	console.log("A munkanapok: "+JSON.stringify(new_munkanaps));
 	console.log("munkanapok összegyűjtése...");
 }
 
@@ -77,12 +94,17 @@ function sendForm() {
 
 $(document).on('blur', '.munkaora' , function() {
 	// amit ide írunk, az akkor fut le, ha a munkaóra mezőt elhagyja a user
+
+	// http://jsfiddle.net/4ksywa6d/1/
+
 	munkaoraMezo = parseFloat($(this).val());
 	if (Number.isFinite(munkaoraMezo)) {
 		if (munkaoraMezo > 8) {
 			$(this).val('8');
 		} else if (munkaoraMezo < 0) {
 			$(this).val('0');
+		} else {
+			$(this).val(munkaoraMezo);
 		}
 	} else {
 		$(this).val('0');
